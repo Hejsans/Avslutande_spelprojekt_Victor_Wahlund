@@ -29,11 +29,11 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
             background = new Background(Content.Load<Texture2D>("images/background"), Window);
 
             menu = new Menu((int)State.Menu);
-            menu.AddItem(Content.Load<Texture2D>("images/menu/start"), (int)State.Run);
-            menu.AddItem(Content.Load<Texture2D>("images/menu/highscore"), (int)State.HighScore);
-            menu.AddItem(Content.Load<Texture2D>("images/menu/exit"), (int)State.Quit);
+            menu.AddItem(Content.Load<Texture2D>("images/menu/start"), (int)State.Run, Window);
+            menu.AddItem(Content.Load<Texture2D>("images/menu/highscore"), (int)State.HighScore, Window);
+            menu.AddItem(Content.Load<Texture2D>("images/menu/exit"), (int)State.Quit, Window);
 
-            levelHandler = new LevelHandler(Content);
+            levelHandler = new LevelHandler(Content, Window);
             levelHandler.LoadLevel(Content, Window);
             
             printText = new PrintText(Content.Load<SpriteFont>("myFont"));
@@ -53,9 +53,9 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
         public static State RunUpdate(ContentManager Content, GameWindow Window, GameTime gameTime)
         {
             background.Update(Window);
-            levelHandler.Update(Window, gameTime);
+            levelHandler.Update(Content, Window, gameTime);
 
-            if (!levelHandler.Player.IsAlive)
+            if (!levelHandler.Player.IsAlive || levelHandler.QuitToMenu)
             {
                 Reset(Window, Content);
                 return State.Menu;
@@ -69,7 +69,7 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
             background.Draw(spriteBatch);
             levelHandler.Draw(spriteBatch);
 
-            printText.Print($"Points: {levelHandler.Player.Points} Rotation: {levelHandler.Player.Rotation}", spriteBatch, 0, 0);
+            printText.Print($"Points: {levelHandler.Player.Points} \r\nLevel {levelHandler.CurrentLevel}", spriteBatch, 0, 0);
         }
 
         public static State HighScoreUpdate()

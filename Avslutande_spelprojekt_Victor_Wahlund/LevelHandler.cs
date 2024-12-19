@@ -16,48 +16,63 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
         private Player player;
         private Tower playerTower;
         private List<Enemy> enemies;
+        private bool levelUp, quitToMenu;
+        private Texture2D bulletTexture;
 
-        public LevelHandler(ContentManager content)
+        public LevelHandler(ContentManager content, GameWindow window)
         {
             currentLevel = 1;
             enemies = new List<Enemy>();
 
-            player = new Player(content.Load<Texture2D>("images/player/chassi"), 380, 400, 3f, 3f, 0f, 0.05f);
-            playerTower = new Tower(content.Load<Texture2D>("images/player/tower"), 380, 400, true, 3f, 3f, content.Load<Texture2D>("images/bullet"), 0, 0.05f);
+            bulletTexture = content.Load<Texture2D>("images/bullet");
+            player = new Player(content.Load<Texture2D>("images/player/chassi"), window.ClientBounds.Width/2, window.ClientBounds.Height * 0.75f, 3f, 3f, 0f, 0.05f);
+            playerTower = new Tower(content.Load<Texture2D>("images/player/tower"), window.ClientBounds.Width / 2, window.ClientBounds.Height * 0.75f, true, 3f, 3f, bulletTexture, 0, 0.08f);
         }
 
         public void LoadLevel(ContentManager content, GameWindow window)
         {
             enemies.Clear();
+            quitToMenu = false;
 
-            Random random = new Random();
             Texture2D mineSprite = content.Load<Texture2D>("images/enemy/mine");
-            //Texture2D tripodSprite = Content.Load<Texture2D>("images/enemy/tripod");
-            for (int i = 0; i < 5; i++)
+            Texture2D sprayMineSprite = content.Load<Texture2D>("images/enemy/spraymine");
+            if (currentLevel == 1)   // Level 1
             {
-                int rndX = random.Next(0, window.ClientBounds.Width - mineSprite.Width);
-                int rndY = random.Next(0, window.ClientBounds.Height / 2);
-
-                Mine mine = new Mine(mineSprite, rndX, rndY, 0f, 1f, player.X, player.Y);
-                enemies.Add(mine);
+                Spawn(content, window, mineSprite, 5, "mine");
+            }
+            else if (currentLevel == 2)   // Level 2
+            {
+                Spawn(content, window, sprayMineSprite, 5, "spraymine");
+            }
+            else if (currentLevel == 3)   // Level 3
+            {
+                Spawn(content, window, sprayMineSprite, 2, "spraymine");
+                Spawn(content, window, mineSprite, 3, "mine");
+            }
+            else     // När alla levels är färdiga och man har klarat spelet
+            {
+                quitToMenu = true;
+                currentLevel = 1;
             }
 
-            //for (int i = 0; i < 5; i++)
-            //{
-            //    int rndX = random.Next(0, Window.ClientBounds.Width - tripodSprite.Width);
-            //    int rndY = random.Next(0, Window.ClientBounds.Height / 2);
-
-            //    Tripod tripod = new Tripod(tripodSprite, rndX, rndY);
-            //    enemies.Add(tripod);
-            //}
         }
 
-        public void Update(GameWindow window, GameTime gameTime)
+        public void Update(ContentManager content, GameWindow window, GameTime gameTime)
         {
+            levelUp = true;
+
             player.Update(window, gameTime);
             playerTower.Update(window, gameTime, player.X, player.Y + ((player.Texture.Height - playerTower.Texture.Height) / 2));
             foreach (Enemy e in enemies.ToList())
             {
+                if (e is SprayMine)
+                {
+                    foreach (Bullet b in (e as SprayMine).Bullets)
+                    {
+                        if (player.CheckCollision(b))
+                            player.IsAlive = false;
+                    }
+                }
                 foreach (Bullet b in playerTower.Bullets)
                 {
                     if (e.CheckCollision(b))
@@ -69,11 +84,14 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
                 }
                 if (e.IsAlive)
                 {
+                    levelUp = false;
                     if (e.CheckCollision(player))
                         player.IsAlive = false;
 
                     if (e is ComplexEnemy)
                         (e as ComplexEnemy).Update(window, player.X, player.Y);
+                    if (e is SprayMine)
+                        (e as SprayMine).Update(window, gameTime);
                     else
                         e.Update(window);
                 }
@@ -81,6 +99,12 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
                 {
                     enemies.Remove(e);
                 }
+            }
+
+            if (levelUp)
+            {
+                currentLevel++;
+                Reset(content, window);
             }
         }
 
@@ -96,15 +120,55 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
 
         public void Reset(ContentManager content, GameWindow window)
         {
-            player.Reset(380, 400, 3f, 3f);
-            playerTower.Reset(380, 400, 3f, 3f);
+            player.Reset(window.ClientBounds.Width / 2, window.ClientBounds.Height * 0.75f, 3f, 3f);
+            playerTower.Reset(window.ClientBounds.Width / 2, window.ClientBounds.Height * 0.75f, 3f, 3f);
 
             LoadLevel(content, window);
+        }
+
+        private void Spawn(ContentManager content, GameWindow window, Texture2D sprite, int amount, string type)
+        {
+            Random random = new Random();
+
+            switch (type)
+            {
+                case "mine":
+                    for (int i = 0; i < amount; i++)
+                    {
+                        int rndX = random.Next(0, window.ClientBounds.Width - sprite.Width);
+                        int rndY = random.Next(0, window.ClientBounds.Height / 2);
+
+                        Mine mine = new Mine(sprite, rndX, rndY, 0f, 1f, player.X, player.Y);
+                        enemies.Add(mine);
+                    }
+                    break;
+
+                case "spraymine":
+                    for (int i = 0; i < amount; i++)
+                    {
+                        int rndX = random.Next(0, window.ClientBounds.Width - sprite.Width);
+                        int rndY = random.Next(0, window.ClientBounds.Height / 2);
+
+                        SprayMine sprayMine = new SprayMine(sprite, rndX, rndY, bulletTexture, 0f, 1f);
+                        enemies.Add(sprayMine);
+                    }
+                    break;
+            }
         }
 
         public Player Player
         {
             get { return player; }
+        }
+
+        public int CurrentLevel
+        {
+            get { return currentLevel; }
+        }
+
+        public bool QuitToMenu
+        {
+            get { return quitToMenu; }
         }
     }
 }

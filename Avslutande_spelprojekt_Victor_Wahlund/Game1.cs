@@ -14,6 +14,9 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
+            _graphics.PreferredBackBufferWidth = 1920;
+            _graphics.PreferredBackBufferHeight = 1080;
         }
 
         protected override void Initialize()

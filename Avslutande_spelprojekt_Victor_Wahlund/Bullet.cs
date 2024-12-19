@@ -10,7 +10,7 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
 {
     internal class Bullet:PhysicalObject
     {
-        public Bullet(Texture2D texture, float X, float Y, bool isFriendly, float rotation, float rotationSpeed) : base(texture, X, Y, isFriendly, 3f, 3f, rotation, rotationSpeed)
+        public Bullet(Texture2D texture, float X, float Y, bool isFriendly, float rotation, float rotationSpeed) : base(texture, X, Y, isFriendly, 4f, 4f, rotation, rotationSpeed)
         {
         }
 

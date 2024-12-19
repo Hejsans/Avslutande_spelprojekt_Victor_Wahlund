@@ -53,10 +53,10 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
             this.defaultMenuState = defaultMenuState;
         }
 
-        public void AddItem(Texture2D itemTexture, int state)
+        public void AddItem(Texture2D itemTexture, int state, GameWindow window)
         {
-            float X = 0;
-            float Y = 0 + currentHeight;
+            float X = (window.ClientBounds.Width/2) - itemTexture.Width/2;
+            float Y = (window.ClientBounds.Height/2) - (itemTexture.Height * 3) + currentHeight;
 
             currentHeight += itemTexture.Height + 20;
 
