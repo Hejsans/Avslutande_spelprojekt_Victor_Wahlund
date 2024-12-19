@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection.Metadata;
 
 namespace Avslutande_spelprojekt_Victor_Wahlund
 {
@@ -17,7 +18,7 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
         static PrintText printText;
         static LevelHandler levelHandler;
 
-        public enum State { Menu, Run, HighScore, Quit };
+        public enum State { Menu, Run, HighScore, Quit, Win, Lose };
         public static State currentState;
 
         public static void Initialize()
@@ -55,11 +56,10 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
             background.Update(Window);
             levelHandler.Update(Content, Window, gameTime);
 
-            if (!levelHandler.Player.IsAlive || levelHandler.QuitToMenu)
-            {
-                Reset(Window, Content);
-                return State.Menu;
-            }
+            if (!levelHandler.Player.IsAlive)
+                return State.Lose;
+            else if (levelHandler.Win)
+                return State.Win;
 
             return State.Run;
         }
@@ -84,6 +84,48 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
         public static void HighScoreDraw(SpriteBatch spriteBatch)
         {
             // Rita highscore-listan
+        }
+
+        public static State WinUpdate(GameWindow window, ContentManager content)
+        {
+            KeyboardState keyboardState = Keyboard.GetState();
+
+            if (keyboardState.IsKeyDown(Keys.Escape))
+            {
+                levelHandler.CurrentLevel = 1;
+                Reset(window, content);
+                return State.Menu;
+            }
+            return State.Win;
+        }
+
+        public static void WinDraw(SpriteBatch spriteBatch, GameWindow window)
+        {
+            background.Draw(spriteBatch);
+
+            printText.Print($"You won!!! \r\nPoints: {levelHandler.Player.Points} \r\nLevel {levelHandler.CurrentLevel}", spriteBatch, window.ClientBounds.Width/2, window.ClientBounds.Height/2);
+            printText.Print($"Press escape to return to menu", spriteBatch, window.ClientBounds.Width / 2, (window.ClientBounds.Height / 2) + 50);
+        }
+
+        public static State LoseUpdate(GameWindow window, ContentManager content)
+        {
+            KeyboardState keyboardState = Keyboard.GetState();
+
+            if (keyboardState.IsKeyDown(Keys.Escape))
+            {
+                Reset(window, content);
+                return State.Menu;
+            }
+                
+            return State.Lose;
+        }
+
+        public static void LoseDraw(SpriteBatch spriteBatch, GameWindow window)
+        {
+            background.Draw(spriteBatch);
+
+            printText.Print($"You died :(  Try again from the level you died! \r\nPoints: {levelHandler.Player.Points} \r\nLevel {levelHandler.CurrentLevel}", spriteBatch, window.ClientBounds.Width / 2, window.ClientBounds.Height / 2);
+            printText.Print($"Press escape to return to menu", spriteBatch, window.ClientBounds.Width / 2, (window.ClientBounds.Height / 2) + 50);
         }
 
         private static void Reset(GameWindow Window, ContentManager Content)

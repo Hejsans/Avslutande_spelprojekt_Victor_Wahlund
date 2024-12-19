@@ -50,6 +50,14 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
                     this.Exit();
                     break;
 
+                case GameElements.State.Win:
+                    GameElements.currentState = GameElements.WinUpdate();
+                    break;
+
+                case GameElements.State.Lose:
+                    GameElements.currentState = GameElements.LoseUpdate();
+                    break;
+
                 default:
                     GameElements.currentState = GameElements.MenuUpdate(gameTime);
                     break;
@@ -76,6 +84,14 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
 
                 case GameElements.State.Quit:
                     this.Exit();
+                    break;
+
+                case GameElements.State.Win:
+                    GameElements.WinDraw(_spriteBatch, Window);
+                    break;
+
+                case GameElements.State.Lose:
+                    GameElements.LoseDraw(_spriteBatch, Window);
                     break;
 
                 default:

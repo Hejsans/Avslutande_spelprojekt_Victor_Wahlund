@@ -16,7 +16,7 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
         private Player player;
         private Tower playerTower;
         private List<Enemy> enemies;
-        private bool levelUp, quitToMenu;
+        private bool levelUp, win;
         private Texture2D bulletTexture;
 
         public LevelHandler(ContentManager content, GameWindow window)
@@ -32,7 +32,7 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
         public void LoadLevel(ContentManager content, GameWindow window)
         {
             enemies.Clear();
-            quitToMenu = false;
+            win = false;
 
             Texture2D mineSprite = content.Load<Texture2D>("images/enemy/mine");
             Texture2D sprayMineSprite = content.Load<Texture2D>("images/enemy/spraymine");
@@ -51,8 +51,8 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
             }
             else     // När alla levels är färdiga och man har klarat spelet
             {
-                quitToMenu = true;
-                currentLevel = 1;
+                win = true;
+                //currentLevel = 1;
             }
 
         }
@@ -164,11 +164,12 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
         public int CurrentLevel
         {
             get { return currentLevel; }
+            set { currentLevel = value; }
         }
 
-        public bool QuitToMenu
+        public bool Win
         {
-            get { return quitToMenu; }
+            get { return win; }
         }
     }
 }
