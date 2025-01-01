@@ -51,11 +51,11 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
                     break;
 
                 case GameElements.State.Win:
-                    GameElements.currentState = GameElements.WinUpdate();
+                    GameElements.currentState = GameElements.WinUpdate(Window, Content);
                     break;
 
                 case GameElements.State.Lose:
-                    GameElements.currentState = GameElements.LoseUpdate();
+                    GameElements.currentState = GameElements.LoseUpdate(Window, Content);
                     break;
 
                 default:
