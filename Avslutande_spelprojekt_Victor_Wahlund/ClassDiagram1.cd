@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Avslutande_spelprojekt_Victor_Wahlund.BackgroundSprite" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Background.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Avslutande_spelprojekt_Victor_Wahlund.Background" Collapsed="true">
+    <Position X="0.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQQAAAAAAAAAAgAAAAAAAAAAAAgAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Background.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Avslutande_spelprojekt_Victor_Wahlund.Bullet" Collapsed="true">
+    <Position X="6.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Bullet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Avslutande_spelprojekt_Victor_Wahlund.Game1" Collapsed="true">
+    <Position X="12.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAwAAAAAAAAAAAAAAAAACAIAAAAAAAAQ=</HashCode>
+      <FileName>Game1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Avslutande_spelprojekt_Victor_Wahlund.Enemy" Collapsed="true">
+    <Position X="9.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Enemy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Avslutande_spelprojekt_Victor_Wahlund.ComplexEnemy" Collapsed="true">
+    <Position X="11.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAQA=</HashCode>
+      <FileName>ComplexEnemy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Avslutande_spelprojekt_Victor_Wahlund.GameElements" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="Avslutande_spelprojekt_Victor_Wahlund.GameElements.State" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>GameElements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>KAAAAAAQAACBBwAAIAAAEAgABAAAAGAIAAAAAAAAJAQ=</HashCode>
+      <FileName>GameElements.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Avslutande_spelprojekt_Victor_Wahlund.GameObject" Collapsed="true">
+    <Position X="4.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAgAAAAAAAEAAAAAAQgAAAAAAAAAAYAA=</HashCode>
+      <FileName>GameObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Avslutande_spelprojekt_Victor_Wahlund.LevelHandler" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAARgAAAEEAAAAEAAAEAQABBAAAAwAAAAA=</HashCode>
+      <FileName>LevelHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Avslutande_spelprojekt_Victor_Wahlund.MenuItem" Collapsed="true">
+    <Position X="2.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgIAAAIAAAAAAAAgAAAAIABAAAAAA=</HashCode>
+      <FileName>Menu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Avslutande_spelprojekt_Victor_Wahlund.Menu" Collapsed="true">
+    <Position X="0.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQAAAAAAAAAAgAAAAAAAAgAgAAAAAAAQAAAAgAAAAA=</HashCode>
+      <FileName>Menu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Avslutande_spelprojekt_Victor_Wahlund.Mine" Collapsed="true">
+    <Position X="11.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Mine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Avslutande_spelprojekt_Victor_Wahlund.MovingObject" Collapsed="true">
+    <Position X="6" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAACAAAAAAAAACQAAAABAAAAAAAA=</HashCode>
+      <FileName>MovingObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Avslutande_spelprojekt_Victor_Wahlund.PhysicalObject" Collapsed="true">
+    <Position X="7.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAAAAAAAAQAAAAGAAAAAAAEAAAA=</HashCode>
+      <FileName>PhysicalObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Avslutande_spelprojekt_Victor_Wahlund.Player" Collapsed="true">
+    <Position X="4.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAACAAAAAhgAAAAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Avslutande_spelprojekt_Victor_Wahlund.PrintText" Collapsed="true">
+    <Position X="2.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>PrintText.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Avslutande_spelprojekt_Victor_Wahlund.SimpleEnemy" Collapsed="true">
+    <Position X="9.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SimpleEnemy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Avslutande_spelprojekt_Victor_Wahlund.SprayMine" Collapsed="true">
+    <Position X="9.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgAAAAIAAAgAAAAAAAAAAAAAAAAAAAAQAAoAAAAA=</HashCode>
+      <FileName>SprayMine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Avslutande_spelprojekt_Victor_Wahlund.Tower" Collapsed="true">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgAAAAIAABgAAAAAAAAAAAAAAAAAAAAIAAoAAAAA=</HashCode>
+      <FileName>Tower.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
