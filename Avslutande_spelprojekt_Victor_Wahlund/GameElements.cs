@@ -17,8 +17,9 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
         static Menu menu;
         static PrintText printText;
         static LevelHandler levelHandler;
+        static HighScore highscore;
 
-        public enum State { Menu, Run, HighScore, Quit, Win, Lose };
+        public enum State { Menu, Run, Quit, Win, Lose, EnterHighScore, PrintHighScore };
         public static State currentState;
 
         public static void Initialize()
@@ -28,10 +29,11 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
         public static void LoadContent(ContentManager Content, GameWindow Window)
         {
             background = new Background(Content.Load<Texture2D>("images/background"), Window);
+            highscore = new HighScore(10);
 
             menu = new Menu((int)State.Menu);
             menu.AddItem(Content.Load<Texture2D>("images/menu/start"), (int)State.Run, Window);
-            menu.AddItem(Content.Load<Texture2D>("images/menu/highscore"), (int)State.HighScore, Window);
+            menu.AddItem(Content.Load<Texture2D>("images/menu/highscore"), (int)State.EnterHighScore, Window);
             menu.AddItem(Content.Load<Texture2D>("images/menu/exit"), (int)State.Quit, Window);
 
             levelHandler = new LevelHandler(Content, Window);
@@ -72,16 +74,42 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
             printText.Print($"Points: {levelHandler.Player.Points} \r\nLevel {levelHandler.CurrentLevel}", spriteBatch, 0, 0);
         }
 
-        public static State HighScoreUpdate()
+        public static State EnterHighScoreUpdate(GameTime gameTime)
         {
             KeyboardState keyboardState = Keyboard.GetState();
 
             if (keyboardState.IsKeyDown(Keys.Escape))
                 return State.Menu;
+
+            while (highscore.EnterUpdate(gameTime, 10))
+            {
+
+            }
+
             return State.HighScore;
         }
 
-        public static void HighScoreDraw(SpriteBatch spriteBatch)
+        public static void PrintHighScoreDraw(SpriteBatch spriteBatch)
+        {
+            // Rita highscore-listan
+        }
+
+        public static State PrintHighScoreUpdate(GameTime gameTime)
+        {
+            KeyboardState keyboardState = Keyboard.GetState();
+
+            if (keyboardState.IsKeyDown(Keys.Escape))
+                return State.Menu;
+
+            while (highscore.EnterUpdate(gameTime, 10))
+            {
+
+            }
+
+            return State.HighScore;
+        }
+
+        public static void EnterHighScoreDraw(SpriteBatch spriteBatch)
         {
             // Rita highscore-listan
         }

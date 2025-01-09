@@ -42,8 +42,12 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
                     GameElements.currentState = GameElements.RunUpdate(Content, Window, gameTime);
                     break;
 
-                case GameElements.State.HighScore:
-                    GameElements.currentState = GameElements.HighScoreUpdate();
+                case GameElements.State.EnterHighScore:
+                    GameElements.currentState = GameElements.EnterHighScoreUpdate(gameTime);
+                    break;
+
+                case GameElements.State.PrintHighScore:
+                    GameElements.currentState = GameElements.PrintHighScoreUpdate();
                     break;
 
                 case GameElements.State.Quit:
@@ -78,8 +82,12 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
                     GameElements.RunDraw(_spriteBatch);
                     break;
 
-                case GameElements.State.HighScore:
-                    GameElements.HighScoreDraw(_spriteBatch);
+                case GameElements.State.EnterHighScore:
+                    GameElements.EnterHighScoreDraw(_spriteBatch);
+                    break;
+
+                case GameElements.State.PrintHighScore:
+                    GameElements.PrintHighScoreDraw(_spriteBatch);
                     break;
 
                 case GameElements.State.Quit:
