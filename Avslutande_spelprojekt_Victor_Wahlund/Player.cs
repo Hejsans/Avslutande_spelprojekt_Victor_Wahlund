@@ -79,7 +79,6 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
             vector.Y = Y;
             speed.X = speedX;
             speed.Y = speedY;
-            points = 0;
             isAlive = true;
             rotation = 0;
         }

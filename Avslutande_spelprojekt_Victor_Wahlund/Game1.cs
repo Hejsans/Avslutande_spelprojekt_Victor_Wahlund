@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.IO;
 
 namespace Avslutande_spelprojekt_Victor_Wahlund
 {
@@ -8,10 +9,13 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private StreamWriter sw;
 
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
+            sw = new StreamWriter("highscore.txt");
+            sw.Close();
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
@@ -47,7 +51,7 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
                     break;
 
                 case GameElements.State.PrintHighScore:
-                    GameElements.currentState = GameElements.PrintHighScoreUpdate();
+                    GameElements.currentState = GameElements.PrintHighScoreUpdate(gameTime);
                     break;
 
                 case GameElements.State.Quit:

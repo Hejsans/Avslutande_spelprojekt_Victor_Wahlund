@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.IO;
 
 
 // =======================================================================
@@ -142,7 +143,7 @@ class HighScore
 	// =======================================================================
 	public void PrintDraw(SpriteBatch spriteBatch, SpriteFont font)
 	{
-		string text = "HIGHSCORE\n";
+		string text = "HIGHSCORE:\n";
 		foreach(HSItem h in highscore)
 			text += h.Name + " " + h.Points + "\n";
 
@@ -180,7 +181,7 @@ class HighScore
 		}
 
 		// Användaren trycker ENTER, lägg till det valda tecknet i 
-		if (CheckKey(Keys.Enter, gameTime))
+		if (CheckKey(Keys.Right, gameTime))
 		{
 			name += key[key_index].ToString();
 			if (name.Length == 3)
@@ -216,7 +217,15 @@ class HighScore
 	// =======================================================================
 	public void SaveToFile(string filename)
 	{
-	}
+        StreamWriter sw = new StreamWriter(filename);
+        // Skriv in alla personer i highscore-listan:
+        foreach (HSItem item in highscore)
+        {
+            string text = item.Name + ":" + item.Points;
+            sw.WriteLine(text);
+        }
+        sw.Close(); // Stäng filen
+    }
 
 	// =======================================================================
 	// LoadFromFile(), ladda från fil.

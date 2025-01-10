@@ -18,6 +18,7 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
         static PrintText printText;
         static LevelHandler levelHandler;
         static HighScore highscore;
+        static SpriteFont font;
 
         public enum State { Menu, Run, Quit, Win, Lose, EnterHighScore, PrintHighScore };
         public static State currentState;
@@ -30,6 +31,7 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
         {
             background = new Background(Content.Load<Texture2D>("images/background"), Window);
             highscore = new HighScore(10);
+            font = Content.Load<SpriteFont>("myFont");
 
             menu = new Menu((int)State.Menu);
             menu.AddItem(Content.Load<Texture2D>("images/menu/start"), (int)State.Run, Window);
@@ -39,7 +41,7 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
             levelHandler = new LevelHandler(Content, Window);
             levelHandler.LoadLevel(Content, Window);
             
-            printText = new PrintText(Content.Load<SpriteFont>("myFont"));
+            printText = new PrintText(font);
         }
 
         public static State MenuUpdate(GameTime gameTime)
@@ -81,17 +83,18 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
             if (keyboardState.IsKeyDown(Keys.Escape))
                 return State.Menu;
 
-            while (highscore.EnterUpdate(gameTime, 10))
+            if (highscore.EnterUpdate(gameTime, levelHandler.Player.Points))
             {
-
+                highscore.SaveToFile("highscore.txt");
+                return State.PrintHighScore;
             }
 
-            return State.HighScore;
+            return State.EnterHighScore;
         }
 
-        public static void PrintHighScoreDraw(SpriteBatch spriteBatch)
+        public static void EnterHighScoreDraw(SpriteBatch spriteBatch)
         {
-            // Rita highscore-listan
+            highscore.EnterDraw(spriteBatch, font);
         }
 
         public static State PrintHighScoreUpdate(GameTime gameTime)
@@ -101,17 +104,14 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
             if (keyboardState.IsKeyDown(Keys.Escape))
                 return State.Menu;
 
-            while (highscore.EnterUpdate(gameTime, 10))
-            {
-
-            }
-
-            return State.HighScore;
+            if (keyboardState.IsKeyDown(Keys.Enter))
+                return State.EnterHighScore;
+            return State.PrintHighScore;
         }
 
-        public static void EnterHighScoreDraw(SpriteBatch spriteBatch)
+        public static void PrintHighScoreDraw(SpriteBatch spriteBatch)
         {
-            // Rita highscore-listan
+            highscore.PrintDraw(spriteBatch, font);
         }
 
         public static State WinUpdate(GameWindow window, ContentManager content)
