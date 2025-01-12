@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Avslutande_spelprojekt_Victor_Wahlund
 {
-    internal class Mine:ComplexEnemy
+    internal class Mine:Enemy
     {
         public Mine(Texture2D texture, float X, float Y, float rotation, float rotationSpeed, float playerX, float playerY) : base(texture, X, Y, 1.4f, 1.4f, rotation, rotationSpeed, playerX, playerY)
         {

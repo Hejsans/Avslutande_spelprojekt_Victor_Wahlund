@@ -14,7 +14,7 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
-            sw = new StreamWriter("highscore.txt");
+            sw = new StreamWriter("highscore.txt", true);
             sw.Close();
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
@@ -35,7 +35,6 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             GameElements.LoadContent(Content, Window);
-
         }
 
         protected override void Update(GameTime gameTime)

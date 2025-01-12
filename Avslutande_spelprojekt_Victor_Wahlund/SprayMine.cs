@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Avslutande_spelprojekt_Victor_Wahlund
 {
-    internal class SprayMine:SimpleEnemy
+    internal class SprayMine:Enemy
     {
         List<Bullet> bullets;
         Texture2D bulletTexture;
@@ -23,7 +23,7 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
             random = new Random();
         }
 
-        public void Update(GameWindow window, GameTime gameTime)
+        public override void Update(GameWindow window, GameTime gameTime)
         {
             if (gameTime.TotalGameTime.TotalMilliseconds > timeSinceLastBullet + random.Next(1500, 9000))
             {

@@ -37,6 +37,7 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
             menu.AddItem(Content.Load<Texture2D>("images/menu/start"), (int)State.Run, Window);
             menu.AddItem(Content.Load<Texture2D>("images/menu/highscore"), (int)State.EnterHighScore, Window);
             menu.AddItem(Content.Load<Texture2D>("images/menu/exit"), (int)State.Quit, Window);
+            highscore.LoadFromFile("highscore.txt");
 
             levelHandler = new LevelHandler(Content, Window);
             levelHandler.LoadLevel(Content, Window);

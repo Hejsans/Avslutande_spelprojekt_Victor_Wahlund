@@ -88,12 +88,15 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
                     if (e.CheckCollision(player))
                         player.IsAlive = false;
 
-                    if (e is ComplexEnemy)
-                        (e as ComplexEnemy).Update(window, player.X, player.Y);
-                    if (e is SprayMine)
-                        (e as SprayMine).Update(window, gameTime);
-                    else
-                        e.Update(window);
+
+                    e.Update(window, player.X, player.Y);
+                    e.Update(window, gameTime);
+                    ////if (e is ComplexEnemy)
+                    ////    (e as ComplexEnemy).Update(window, player.X, player.Y);
+                    ////if (e is SprayMine)
+                    ////    (e as SprayMine).Update(window, gameTime);
+                    //else
+                    //    e.Update(window);
                 }
                 else
                 {

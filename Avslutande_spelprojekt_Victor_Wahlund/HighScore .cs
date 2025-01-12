@@ -232,6 +232,20 @@ class HighScore
 	// =======================================================================
 	public void LoadFromFile(string filename)
 	{
-	}
+        StreamReader sr = new StreamReader(filename);
+        // Läs in alla rader till string-objektet row och skriv ut dem:
+		string row; 
+        while ((row = sr.ReadLine()) != null)
+        {
+            // skapa en vektor som innehåller namn och poäng, 
+            // words[0] blir namnet och words[1] är poängen: 
+            string[] words = row.Split(':');
+            int points = Convert.ToInt32(words[1]);
+            // Lägg till i listan: 
+            HSItem temp = new HSItem(words[0], points);
+            highscore.Add(temp);
+        }
+        sr.Close(); // Stäng filen 
+    }
 }
 
