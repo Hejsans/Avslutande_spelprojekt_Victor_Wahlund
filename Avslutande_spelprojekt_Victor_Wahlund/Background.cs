@@ -10,14 +10,13 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
 {
     class BackgroundSprite : GameObject
     {
-        public BackgroundSprite(Texture2D texture, float X, float Y) : base(texture, X, Y)
+        public BackgroundSprite(Texture2D texture, float X, float Y) : base(texture, X, Y)  // Konstruktor
         {
 
         }
 
         public void Update(GameWindow window, int nrBackgroundsY)
         {
-            //vector.Y += 2f;
             if (vector.Y > window.ClientBounds.Height)
             {
                 vector.Y = vector.Y - nrBackgroundsY * texture.Height;

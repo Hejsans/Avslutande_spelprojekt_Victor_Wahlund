@@ -8,11 +8,19 @@ using System.Threading.Tasks;
 
 namespace Avslutande_spelprojekt_Victor_Wahlund
 {
-    internal class GameObject
+    internal abstract class GameObject
     {
+        // Medlemsvariabler
         protected Texture2D texture;
         protected Vector2 vector;
 
+        // Konstruktor
+        /// <summary>
+        /// Grundläggande mall för alla objekt i spelet
+        /// </summary>
+        /// <param name="texture"> Objektets textur </param>
+        /// <param name="X"> Objektets X-koordinat </param>
+        /// <param name="Y"> Objektets Y-koordinat </param>
         public GameObject(Texture2D texture, float X, float Y)
         {
             this.texture = texture;
@@ -22,9 +30,10 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, vector, Color.White);
+            spriteBatch.Draw(texture, vector, Color.White);   // Ritar ut objektet
         }
 
+        // Egenskaper
         public float X
         {
             get { return this.vector.X; }
