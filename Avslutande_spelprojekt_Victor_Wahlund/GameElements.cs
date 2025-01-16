@@ -65,8 +65,7 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
 
         public static State RunUpdate(ContentManager Content, GameWindow Window, GameTime gameTime)   // Update-metoden till när spelet körs
         {
-            // Uppdaterar bakgrunden och levelHandler
-            background.Update(Window);
+            // Uppdaterar levelHandler
             levelHandler.Update(Content, Window, gameTime);
 
             // Ändrar currentState till Lose om spelaren är död (gör så man förlorar) och till Win om LevelHandler.Win är sant (vilket den är när alla banor är avklarade)
