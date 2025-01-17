@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection.Metadata;
+using System.Diagnostics;
 
 namespace Avslutande_spelprojekt_Victor_Wahlund
 {
@@ -21,7 +22,7 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
         static HighScore highscore;
         static SpriteFont font;
 
-        public enum State { Menu, Run, Quit, Win, Lose, EnterHighScore, PrintHighScore };   // Skapar olika "states" spelet kan vara i
+        public enum State { Menu, Run, Quit, Win, Lose, EnterHighScore, PrintHighScore, Instructions };   // Skapar olika "states" spelet kan vara i
         public static State currentState;
 
         public static void Initialize()
@@ -41,7 +42,7 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
             // Laddar in och skapar menyn
             menu = new Menu((int)State.Menu);
             menu.AddItem(Content.Load<Texture2D>("images/menu/start"), (int)State.Run, Window);
-            menu.AddItem(Content.Load<Texture2D>("images/menu/highscore"), (int)State.EnterHighScore, Window);
+            menu.AddItem(Content.Load<Texture2D>("images/menu/highscore"), (int)State.PrintHighScore, Window);
             menu.AddItem(Content.Load<Texture2D>("images/menu/exit"), (int)State.Quit, Window);
 
             // Laddar in highscore från fil
@@ -50,6 +51,25 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
             // Skapar ett LevelHandler-objekt och laddar in första banan
             levelHandler = new LevelHandler(Content, Window);
             levelHandler.LoadLevel(Content, Window);  
+        }
+
+        public static State InstructionUpdate()    // Instruktionernas update-metod
+        {
+            KeyboardState keyboardState = Keyboard.GetState();
+
+            // Gå till menyn om man trycker på escape
+            if (keyboardState.IsKeyDown(Keys.Escape))
+                return State.Menu;
+            return State.Instructions;
+        }
+
+        public static void InstructionDraw(SpriteBatch spriteBatch, GameWindow window)  // Instruktionernas draw-metod
+        {
+            // Ger spelaren instruktioner om hur man spelar spelet
+            printText.Print("Instructions", spriteBatch, 50, 20);
+            printText.Print("-Use WASD to drive the tank and LEFT/RIGHT arrows to control the turret\r\n-Press SPACE to shoot\r\n" +
+                "-Use UP/DOWN arrows to control the menu and ENTER to select\r\n-You can press ESCAPE at any time to return to the main menu", spriteBatch, 50, 40);
+            printText.Print("Press escape to go to the main menu", spriteBatch, 50, 150);
         }
 
         public static State MenuUpdate(GameTime gameTime)   // Menyns update-metod
@@ -107,6 +127,11 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
         public static void EnterHighScoreDraw(SpriteBatch spriteBatch)   // Draw-metoden för när man skriver in sin highscore
         {
             highscore.EnterDraw(spriteBatch, font);
+
+            // Ger instruktioner om hur man använder Highscore-listan
+            printText.Print("Use UP/DOWN arrows to select character and RIGHT arrow to choose the next character \r\n" +
+                "You can enter a 3 character namne that will be saved along with your highscore\r\n" +
+                "Press RIGHT one more time after entering your letters to see the highscore list", spriteBatch, 800, 1);
         }
 
         public static State PrintHighScoreUpdate(GameTime gameTime)    // Update-metoden för när highscore-listan visas
@@ -118,7 +143,7 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
                 return State.Menu;
 
             // Byter state till EnterHighscore om man trycker på enter
-            if (keyboardState.IsKeyDown(Keys.Enter))
+            if (keyboardState.IsKeyDown(Keys.E))
                 return State.EnterHighScore;
             return State.PrintHighScore;
         }
@@ -126,6 +151,9 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
         public static void PrintHighScoreDraw(SpriteBatch spriteBatch)   // Draw-metoden för när highscore-listan visas
         {
             highscore.PrintDraw(spriteBatch, font);
+
+            // Ger instruktioner om hur man använder Highscore-listan
+            printText.Print("This is the highscore list, it contains the top 10 highscores saved on this computer\r\nPress E to enter your score into the list", spriteBatch, 800, 1);
         }
 
         public static State WinUpdate(GameWindow window, ContentManager content)    // Update-metoden för när man har vunnit
@@ -147,8 +175,8 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
             background.Draw(spriteBatch);
 
             // Gratulerar spelaren och visar både vilken bana den var på och poäng samt säger hur man går tillbaka till menyn
-            printText.Print($"You won!!! \r\nPoints: {levelHandler.Player.Points} \r\nLevel {levelHandler.CurrentLevel}", spriteBatch, window.ClientBounds.Width/2, window.ClientBounds.Height/2);
-            printText.Print($"Press escape to return to menu", spriteBatch, window.ClientBounds.Width / 2, (window.ClientBounds.Height / 2) + 60);
+            printText.Print($"You won!!! \r\nPoints: {levelHandler.Player.Points} \r\nLevel {levelHandler.CurrentLevel}" +
+                "\r\n Press escape to return to the menu", spriteBatch, window.ClientBounds.Width/2, window.ClientBounds.Height/2);
         }
 
         public static State LoseUpdate(GameWindow window, ContentManager content)   // Update-metoden för när man har förlorat
@@ -170,8 +198,8 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
             background.Draw(spriteBatch);
 
             // Visar både vilken bana spelaren var på och poäng samt säger hur man går tillbaka till menyn
-            printText.Print($"You died :(  Try again from the level you died! \r\nPoints: {levelHandler.Player.Points} \r\nLevel {levelHandler.CurrentLevel}", spriteBatch, window.ClientBounds.Width / 2, window.ClientBounds.Height / 2);
-            printText.Print($"Press escape to return to menu", spriteBatch, window.ClientBounds.Width / 2, (window.ClientBounds.Height / 2) + 50);
+            printText.Print($"You died :(  Try again from the level you died! \r\nPoints: {levelHandler.Player.Points} \r\nLevel {levelHandler.CurrentLevel}" +
+                "\r\n Press escape to return to the menu", spriteBatch, window.ClientBounds.Width / 2, window.ClientBounds.Height / 2);
         }
 
         private static void Reset(GameWindow Window, ContentManager Content)   // Återställer spelet

@@ -209,7 +209,7 @@ class HighScore
 	public void EnterDraw(SpriteBatch spriteBatch, SpriteFont font)
 	{
 		string text = "ENTER NAME:" + name + currentChar;
-		spriteBatch.DrawString(font, text, Vector2.Zero, Color.White);
+		spriteBatch.DrawString(font, text, Vector2.One, Color.White);
 	}
 
 	// =======================================================================

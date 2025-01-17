@@ -26,7 +26,7 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
 
         protected override void Initialize()
         {
-            GameElements.currentState = GameElements.State.Menu;   // Gör så spelet startar i menyn
+            GameElements.currentState = GameElements.State.Instructions;   // Gör så spelet startar i instruktioner
             GameElements.Initialize();   // Kallar Initialize() i GameElements
 
             base.Initialize();
@@ -66,6 +66,10 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
                     GameElements.currentState = GameElements.LoseUpdate(Window, Content);
                     break;
 
+                case GameElements.State.Instructions:  // När man kollar på instruktioner i början av spelet
+                    GameElements.currentState = GameElements.InstructionUpdate();
+                    break;
+
                 default:   // När man är inne i menyn
                     GameElements.currentState = GameElements.MenuUpdate(gameTime);
                     break;
@@ -76,7 +80,7 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
 
         protected override void Draw(GameTime gameTime)  // Kallar rätt draw-metod beroende på vilken state spelet är i
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin();
 
@@ -104,6 +108,10 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
 
                 case GameElements.State.Lose:   // När man har förlorat
                     GameElements.LoseDraw(_spriteBatch, Window);
+                    break;
+
+                case GameElements.State.Instructions:   // När man Kollar på instruktioner i början av spelet
+                    GameElements.InstructionDraw(_spriteBatch, Window);
                     break;
 
                 default:    // När man är inne i menyn
