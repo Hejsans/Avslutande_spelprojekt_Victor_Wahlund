@@ -15,7 +15,7 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
         {
         }
 
-        public override void Update(GameWindow window, float playerX, float playerY)
+        public override void Update(GameWindow window, GameTime gameTime, float playerX, float playerY)
         {
             // Räknar ut spelarens koordinater i et koordiatsystem där fienden är origo
             playerX = playerX - X;

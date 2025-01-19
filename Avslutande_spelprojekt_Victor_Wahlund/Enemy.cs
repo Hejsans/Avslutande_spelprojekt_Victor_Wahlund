@@ -32,7 +32,7 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
         }
 
         // Update-metod 2 för fiender som behöver följa spelaren
-        public virtual void Update(GameWindow window, float playerX, float playerY)
+        public virtual void Update(GameWindow window, GameTime gameTime, float playerX, float playerY)
         {
 
         }

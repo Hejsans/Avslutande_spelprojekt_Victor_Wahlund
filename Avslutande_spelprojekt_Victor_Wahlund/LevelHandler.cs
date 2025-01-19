@@ -41,6 +41,7 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
             // Laddar in fiendernas texturer
             Texture2D mineSprite = content.Load<Texture2D>("images/enemy/mine");
             Texture2D sprayMineSprite = content.Load<Texture2D>("images/enemy/spraymine");
+            Texture2D towerEnemySprite = content.Load<Texture2D>("images/enemy/towerEnemy");
 
             // Skapar de fiender som ska finnas beroende på vilken bana man är på
             switch(currentLevel)
@@ -56,6 +57,19 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
                 case 3:  // Level 3
                     Spawn(content, window, sprayMineSprite, 2, "spraymine");  // 2 "spraymine" fiender
                     Spawn(content, window, mineSprite, 3, "mine");  // 3 "mine" fiender
+                    break;
+
+                case 4:  // Level 4
+                    Spawn(content, window, towerEnemySprite, 2, "towerEnemy");   // 2 "towerEnemy" fiender
+                    break;
+
+                case 5:  // Level 5
+                    Spawn(content, window, sprayMineSprite, 3, "spraymine");  // 3 "spraymine" fiender
+                    Spawn(content, window, mineSprite, 6, "mine");  // 6 "mine" fiender
+                    break;
+
+                case 6:  // Level 6
+                    Spawn(content, window, towerEnemySprite, 8, "towerEnemy");   // 8 "towerEnemy" fiender
                     break;
 
                 default:  // När alla levels är färdiga och man har klarat spelet
@@ -85,7 +99,17 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
                             player.IsAlive = false;
                     }
                 }
-                
+
+                // Kollar om spelaren har kolliderat med någon av towerenemys skott och dödar spelaren om det har hänt
+                if (e is TowerEnemy)
+                {
+                    foreach (Bullet b in (e as TowerEnemy).Bullets)
+                    {
+                        if (player.CheckCollision(b))
+                            player.IsAlive = false;
+                    }
+                }
+
                 // Kollar om någon av spelarens skott har kolliderat med en fiende. Dödar fienden och tar bort skottet om de har kolliderat samt ger spelaren ett poäng
                 foreach (Bullet b in playerTower.Bullets)
                 {
@@ -108,7 +132,7 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
                         player.IsAlive = false;
 
                     // Uppdaterar fienden e (Enemy använder polymorfism och har två olika Update-metoder) 
-                    e.Update(window, player.X, player.Y);
+                    e.Update(window, gameTime, player.X, player.Y);
                     e.Update(window, gameTime);
                 }
                 else
@@ -187,6 +211,19 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
                         // Skapar fienden och lägger till de i listan enemies
                         SprayMine sprayMine = new SprayMine(sprite, rndX, rndY, bulletTexture, 0f, 1f);
                         enemies.Add(sprayMine);
+                    }
+                    break;
+
+                case "towerEnemy":   // För att skapa fienden "towerEnemy"
+                    for (int i = 0; i < amount; i++)
+                    {
+                        // Placerar fienden på en slumpmässig position i den övre halvan av skärmen
+                        int rndX = random.Next(0, window.ClientBounds.Width - sprite.Width);
+                        int rndY = random.Next(0, window.ClientBounds.Height / 2);
+
+                        // Skapar fienden och lägger till de i listan enemies
+                        TowerEnemy towerEnemy = new TowerEnemy(sprite, rndX, rndY, bulletTexture, 0f, 1f, player.X, player.Y);
+                        enemies.Add(towerEnemy);
                     }
                     break;
             }

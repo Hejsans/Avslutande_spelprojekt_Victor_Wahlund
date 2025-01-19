@@ -61,6 +61,18 @@
 /processorParam:TextureFormat=Color
 /build:images/enemy/spraymine.png
 
+#begin images/enemy/towerEnemy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:images/enemy/towerEnemy.png
+
 #begin images/menu/exit.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -108,18 +120,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:images/player/chassi.png
-
-#begin images/player/ship.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:images/player/ship.png
 
 #begin images/player/tower.png
 /importer:TextureImporter
