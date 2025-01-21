@@ -21,6 +21,7 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
         static LevelHandler levelHandler;
         static HighScore highscore;
         static SpriteFont font;
+        static bool diedLastGame;
 
         public enum State { Menu, Run, Quit, Win, Lose, EnterHighScore, PrintHighScore, Instructions };   // Skapar olika "states" spelet kan vara i
         public static State currentState;
@@ -50,7 +51,10 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
 
             // Skapar ett LevelHandler-objekt och laddar in första banan
             levelHandler = new LevelHandler(Content, Window);
-            levelHandler.LoadLevel(Content, Window);  
+            levelHandler.LoadLevel(Content, Window);
+
+            // Spelaren har inte dött förra spelet
+            diedLastGame = false;
         }
 
         public static State InstructionUpdate()    // Instruktionernas update-metod
@@ -69,12 +73,22 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
             printText.Print("Instructions", spriteBatch, 50, 20);
             printText.Print("-Use WASD to drive the tank and LEFT/RIGHT arrows to control the turret\r\n-Press SPACE to shoot\r\n" +
                 "-Use UP/DOWN arrows to control the menu and ENTER to select\r\n-You can press ESCAPE at any time to return to the main menu", spriteBatch, 50, 40);
-            printText.Print("Press escape to go to the main menu", spriteBatch, 50, 150);
+            printText.Print("You will earn one point for each enemy killed and you will keep your points as long as you keep winning\r\nIf you die your points will be reset and if you beat the game" +
+                "you can replay all the levels keeping your points", spriteBatch, 50, 150);
+            printText.Print("Press escape to go to the main menu", spriteBatch, 50, 250);
         }
 
         public static State MenuUpdate(GameTime gameTime)   // Menyns update-metod
         {
-            return (State)menu.Update(gameTime); // Returnerar olika States beroende på om man har tryckt på en knapp i menyn
+            // Olika States beroende på om man har tryckt på en knapp i menyn
+            State menuState = (State)menu.Update(gameTime);  
+
+            // Återställer poängen om man dog första rundan, detta utförs här så spelaren ska få en chans att skriva in sin highscore innan poängen återsälls
+            if (menuState == State.Run && diedLastGame)
+                levelHandler.Player.Points = 0;
+
+            // Returnerar den State man har tryckt på i menyn
+            return menuState;   
         }
 
         public static void MenuDraw(SpriteBatch spriteBatch)  // Menyns draw-metod
@@ -165,6 +179,7 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
             {
                 levelHandler.CurrentLevel = 1;
                 Reset(window, content);
+                diedLastGame = false;
                 return State.Menu;
             }
             return State.Win;
@@ -187,6 +202,7 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
             if (keyboardState.IsKeyDown(Keys.Escape))
             {
                 Reset(window, content);
+                diedLastGame = true;     // Registrerar att man har dött, detta innebär att ens poäng kommer återställas när man kör igen
                 return State.Menu;
             }
                 
