@@ -43,7 +43,7 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
             if (gameTime.TotalGameTime.TotalMilliseconds > timeSinceLastBullet + timeUntilNextBullet)
             {
                 // Skjuter ut ett skott ur kanonen på texturen åt den riktning tornet pekar
-                Bullet temp = new Bullet(bulletTexture, vector.X - 20 * (float)Math.Cos(rotation + (Math.PI / 2)), vector.Y - 20 * (float)Math.Sin(rotation + (Math.PI / 2)), false, rotation, 0);
+                Bullet temp = new Bullet(bulletTexture, vector.X - 20 * (float)Math.Cos(rotation + (Math.PI / 2)), vector.Y - 20 * (float)Math.Sin(rotation + (Math.PI / 2)), rotation, 0);
                 bullets.Add(temp);
 
                 // Bestämmer nästa gång som fienden ska skjuta

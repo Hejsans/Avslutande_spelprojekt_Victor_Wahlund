@@ -14,7 +14,6 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
     {
         // Medlemsvariabler
         protected bool isAlive = true;
-        private bool isFriendly;
 
         // Konstruktor
         /// <summary>
@@ -23,14 +22,12 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
         /// <param name="texture"></param>
         /// <param name="X"></param>
         /// <param name="Y"></param>
-        /// <param name="isFriendly"> Visar om objektet är vänligt mot spelaren eller inte </param>
         /// <param name="speedX"></param>
         /// <param name="speedY"></param>
         /// <param name="rotation"></param>
         /// <param name="rotationSpeed"></param>
-        public PhysicalObject(Texture2D texture, float X, float Y, bool isFriendly, float speedX, float speedY, float rotation, float rotationSpeed) : base(texture, X, Y, speedX, speedY, rotation, rotationSpeed)
+        public PhysicalObject(Texture2D texture, float X, float Y, float speedX, float speedY, float rotation, float rotationSpeed) : base(texture, X, Y, speedX, speedY, rotation, rotationSpeed)
         {
-            this.isFriendly = isFriendly;
         }
 
         public bool CheckCollision(PhysicalObject other)  // Metod som kollar om objektet har kolliderat med ett annat (other)
@@ -47,11 +44,6 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
         {
             get { return isAlive; }
             set { isAlive = value; }
-        }
-
-        public bool IsFriendly
-        {
-            get { return isFriendly; }
         }
     }
 }

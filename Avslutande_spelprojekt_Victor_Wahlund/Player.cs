@@ -15,7 +15,7 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
         int points = 0;
 
         // Konstruktor
-        public Player(Texture2D texture, float X, float Y, float speedX, float speedY, float rotation, float rotationSpeed) : base(texture, X, Y, true, speedX, speedY, rotation, rotationSpeed)
+        public Player(Texture2D texture, float X, float Y, float speedX, float speedY, float rotation, float rotationSpeed) : base(texture, X, Y, speedX, speedY, rotation, rotationSpeed)
         {
             
         }

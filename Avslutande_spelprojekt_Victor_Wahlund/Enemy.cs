@@ -14,12 +14,12 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
         protected float playerX, playerY;
 
         // Konstruktor 1, för fiender som inte behöver spelarens position
-        public Enemy(Texture2D texture, float X, float Y, float speedX, float speedY, float rotation,float rotationSpeed) : base(texture, X, Y, false, speedX, speedY, rotation, rotationSpeed)
+        public Enemy(Texture2D texture, float X, float Y, float speedX, float speedY, float rotation,float rotationSpeed) : base(texture, X, Y, speedX, speedY, rotation, rotationSpeed)
         {
         }
 
         // Konstruktor 2, för fiender som behöver spelarens position
-        public Enemy(Texture2D texture, float X, float Y, float speedX, float speedY, float rotation, float rotationSpeed, float playerX, float playerY) : base(texture, X, Y, false, speedX, speedY, rotation, rotationSpeed)
+        public Enemy(Texture2D texture, float X, float Y, float speedX, float speedY, float rotation, float rotationSpeed, float playerX, float playerY) : base(texture, X, Y, speedX, speedY, rotation, rotationSpeed)
         {
             this.playerX = playerX;
             this.playerY = playerY;

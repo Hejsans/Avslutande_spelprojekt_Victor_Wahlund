@@ -29,7 +29,7 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
             // Laddar in texturer till bullet och spelare
             bulletTexture = content.Load<Texture2D>("images/bullet");
             player = new Player(content.Load<Texture2D>("images/player/chassi"), window.ClientBounds.Width/2, window.ClientBounds.Height * 0.75f, 3f, 3f, 0f, 0.05f);
-            playerTower = new Tower(content.Load<Texture2D>("images/player/tower"), window.ClientBounds.Width / 2, window.ClientBounds.Height * 0.75f, true, 3f, 3f, bulletTexture, 0, 0.08f);
+            playerTower = new Tower(content.Load<Texture2D>("images/player/tower"), window.ClientBounds.Width / 2, window.ClientBounds.Height * 0.75f, 3f, 3f, bulletTexture, 0, 0.08f);
         }
 
         public void LoadLevel(ContentManager content, GameWindow window)   // Laddar in en bana

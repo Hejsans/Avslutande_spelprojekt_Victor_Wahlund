@@ -9,12 +9,11 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private StreamWriter sw;
 
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
-            sw = new StreamWriter("highscore.txt", true);   // Skapar en highscore-fil ifall det int efinns någon så det inte blir error när highscore.txt ska loadas 
+            StreamWriter sw = new StreamWriter("highscore.txt", true);   // Skapar en highscore-fil ifall det int efinns någon så det inte blir error när highscore.txt ska loadas 
             sw.Close();
             Content.RootDirectory = "Content";
             IsMouseVisible = true;

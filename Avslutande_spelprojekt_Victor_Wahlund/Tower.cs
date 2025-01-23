@@ -23,13 +23,12 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
         /// <param name="texture"></param>
         /// <param name="X"></param>
         /// <param name="Y"></param>
-        /// <param name="isFriendly"></param>
         /// <param name="speedX"></param>
         /// <param name="speedY"></param>
         /// <param name="bulletTexture"> Skottets textur </param>
         /// <param name="rotation"></param>
         /// <param name="rotationSpeed"></param>
-        public Tower(Texture2D texture, float X, float Y, bool isFriendly, float speedX, float speedY, Texture2D bulletTexture, float rotation, float rotationSpeed) : base(texture, X, Y, isFriendly, speedX, speedY, 0, rotationSpeed)
+        public Tower(Texture2D texture, float X, float Y, float speedX, float speedY, Texture2D bulletTexture, float rotation, float rotationSpeed) : base(texture, X, Y, speedX, speedY, 0, rotationSpeed)
         {
             bullets = new List<Bullet>();  // Skapar en lista med Bullets 
             this.bulletTexture = bulletTexture;
@@ -50,30 +49,26 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
             vector.X = X;
             vector.Y = Y - 12;  // -12 eftersom tornets textur är annorlunda och måste hamna rätt
 
-            // Kollar om tornet är vänligt (är spelarens torn) och går att styra om den är det
-            if (IsFriendly)
+            KeyboardState keyboardState = Keyboard.GetState();
+
+            // Roterar tornet när man trycker på pilknapparna
+            if (keyboardState.IsKeyDown(Keys.Right))
+                rotation += rotationSpeed;
+            if (keyboardState.IsKeyDown(Keys.Left))
+                rotation -= rotationSpeed;
+
+            // Skjuter när man trycker på mellanslag
+            if (keyboardState.IsKeyDown(Keys.Space))
             {
-                KeyboardState keyboardState = Keyboard.GetState();
-
-                // Roterar tornet när man trycker på pilknapparna
-                if (keyboardState.IsKeyDown(Keys.Right))
-                    rotation += rotationSpeed;
-                if (keyboardState.IsKeyDown(Keys.Left))
-                    rotation -= rotationSpeed;
-
-                // Skjuter när man trycker på mellanslag
-                if (keyboardState.IsKeyDown(Keys.Space))
+                // Kollar om det har gått 200 millisekunder sen senaste gången man sköt
+                if (gameTime.TotalGameTime.TotalMilliseconds > timeSinceLastBullet + 200)
                 {
-                    // Kollar om det har gått 200 millisekunder sen senaste gången man sköt
-                    if (gameTime.TotalGameTime.TotalMilliseconds > timeSinceLastBullet + 200)
-                    {
-                        // Skapar en bullet som pekar åt samma håll som tornet
-                        Bullet temp = new Bullet(bulletTexture, vector.X - 20 * (float)Math.Cos(rotation + (Math.PI / 2)), vector.Y - 20 * (float)Math.Sin(rotation + (Math.PI / 2)), true, rotation, 0);
-                        
-                        // Lägger den i listan bullets och uppdaterar timeSinceLastBullet
-                        bullets.Add(temp);
-                        timeSinceLastBullet = gameTime.TotalGameTime.TotalMilliseconds;
-                    }
+                    // Skapar en bullet som pekar åt samma håll som tornet
+                    Bullet temp = new Bullet(bulletTexture, vector.X - 20 * (float)Math.Cos(rotation + (Math.PI / 2)), vector.Y - 20 * (float)Math.Sin(rotation + (Math.PI / 2)), rotation, 0);
+
+                    // Lägger den i listan bullets och uppdaterar timeSinceLastBullet
+                    bullets.Add(temp);
+                    timeSinceLastBullet = gameTime.TotalGameTime.TotalMilliseconds;
                 }
             }
 

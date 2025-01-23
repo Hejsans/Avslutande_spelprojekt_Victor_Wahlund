@@ -34,7 +34,7 @@ namespace Avslutande_spelprojekt_Victor_Wahlund
                 // Skjuter ut 8 olika skott i en cirkel runt fienden
                 for (int i = 0; i < 8; i++)
                 {
-                    Bullet temp = new Bullet(bulletTexture, X, Y, false, (float)(i * Math.PI / 4), 0);
+                    Bullet temp = new Bullet(bulletTexture, X, Y, (float)(i * Math.PI / 4), 0);
                     bullets.Add(temp);
                 }
                 // Bestämmer nästa gång som fienden ska skjuta
